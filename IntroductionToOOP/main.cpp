@@ -24,39 +24,58 @@ public:
 		this->y = y;
 	}
 	//   Constructors:
-	Point()
+	/*Point()
 	{
 		x = y = 0;
 		cout << "DefaultConstructor:\t" << this << endl;
-	}
-	Point(double x)
+	}*/
+	/*Point(double x)
 	{
 		this->x = x;
 		this->y = 0;
 		cout << "1ArgConstructor:\t" << this << endl;
 
-	}
+	}*/
 	Point(double x, double y)
 	{
 		this->x = x;
 		this->y = y;
 		cout << "Construcror:\t\t" << this << endl;
 	}
-
+	
 	~Point()
 	{
 		cout << "Destructor:\t\t" << this << endl;
 	}
 
 	//  Methods:
+	double distance(Point other)
+	{
+		double x_distance = this->x - other.x;
+		double y_distance = this->y - other.y;
+		double distance = sqrt(x_distance * x_distance + y_distance * y_distance);
+		//sqrt-Square Root(Квадратный корень)
+		return distance;
+	}
 	void print()const
 	{
 		cout << "X=" << x << "\tY=" << y << endl;
 	}
 };
 
+double distance(Point A, Point B)
+{
+	double x_distance = A.get_x() - B.get_x();
+	double y_distance = A.get_y() - B.get_y();
+	double y_distance = sqrt(x_distance * x_distance + y_distance * y_distance);
+	return distance;
+}
+
 
 //#define STRUCT_POINT
+#define CONSTRUCTORS_CHECK
+//#define DISTANCE_CHECK
+
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -78,6 +97,7 @@ void main()
 
  #endif // STRUCT_POINT
 
+#ifdef CONSTRUCTORS_CHECK
 	Point A;
 	//A.set_x(2);
 	//A.set_y(3);
@@ -89,4 +109,22 @@ void main()
 
 	Point C(2, 3);
 	C.print();
+
+	A.distance(B);
+#endif // CONSTRUCTORS_CHECK
+
+#ifdef DISTANCE_CHECK
+	Point A(2, 3);
+	Point B(7, 8);
+
+	A.print();
+	B.print();
+
+	cout << "Растояние от точки 'A'до точки 'B':" << A.distance(B) << endl;
+	cout << "Растояние от точки 'B'до точки 'B':" << B.distance(B) << endl;
+	cout << "Растояние между точками 'A'и'B':" << distance(A, B) << endl;
+	cout << "Растояние между точками 'B'и'A':" << distance(B, A) << endl;
+
+#endif // DISTANCE_CHECK
+
 }
