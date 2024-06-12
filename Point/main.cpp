@@ -65,6 +65,19 @@ public:
 		cout << "CopyAssignment:\t\t" << this << endl;
 		return *this;
 	}
+	Point& operator++() // Prefix increment
+	{
+		x++;
+		y++;
+		return *this;
+	}
+	Point operator++(int)
+	{
+		Point old = *this;
+		x++;
+		y++;
+		return old;
+	}
 
 	                //	Methods:
 	double distance(const Point other)const
@@ -93,10 +106,35 @@ double distance(const Point& A,const Point& B)
 	return distance;
 }
 
+Point operator+(const Point& left, const Point& right)
+{
+	Point result;
+	result.set_x(left.get_x() + right.get_x());
+	result.set_y(left.get_y() + right.get_y());
+	return result;
+}
+
+bool operator==(const Point& left, const Point& right)
+{
+	/*if (left.get_x() == right.get_x() && left.get_y() == right.get_y())
+		return true;
+	else
+		return false;*/
+	return left.get_x() == right.get_x() && left.get_y() == right.get_y();
+}
+
+std::ostream& operator<<(std::ostream& os, const Point& obj)
+{
+	return os << "X=" << obj.get_x() << "\tY=" << obj.get_y();
+}
+
+
 //#define STRUCT_POINT
 //#define CONSTRUCTORS_CHECK
 //#define DISTANCE_CHECK
-#define ASSIGNMENT_CHEK
+//#define ASSIGNMENT_CHEK
+//#define ARITHMETICAL_OPERATOR_CHECK
+//#define COMPARISON_OPERATORS_CHECK
 
 void main()
 {
@@ -184,6 +222,39 @@ void main()
 
 
 #endif // ASSIGNMENT_CHEK
+
+#ifdef ARITHMETICAL_OPERATOR_CHECK
+	int a = 2;
+	int b = 3;
+	int c=a+b;
+
+	Point A(2, 3);
+	A.print();
+
+	Point B(7, 8);
+	B.print();
+
+	Point C = A + B;
+	C.print();
+
+	Point D = C++;
+	C.print();
+	D.print();
+
+#endif // ARITHMETICAL_OPERATOR_CHECK
+
+#ifdef COMPARISON_OPERATORS_CHECK
+
+	//cout << (2 == 3)<<endl;
+	Point A(2, 3);
+	Point B(7, 8);
+	cout << (A == A) << endl;
+	cout << (Point(2, 3) == Point(7, 8)) << endl;
+#endif // COMPARISON_OPERATORS_CHECK
+
+	Point A(2, 3);
+	
+	cout << A << endl;
 
 }
 /*
